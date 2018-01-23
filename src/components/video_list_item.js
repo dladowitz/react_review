@@ -1,10 +1,10 @@
 import React from 'react';
 
 const VideoListItem = (props) => {
-  console.log("VideoItem: ", props['video']['snippet'])
+  console.log("VideoItem: ", props['video'])
   const video = props['video']
   return (
-    <li>
+    <li id={video['etag']}>
       <div><strong>{video['snippet']['title']}</strong></div>
       <div>{video['snippet']['description']}</div>
       <div><em>{video['snippet']['thumbnails']['default']['url']}</em></div>
