@@ -1,24 +1,48 @@
-import React from 'react';
+import React, { Component} from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 
-import EnvVar from '../.env.js'
 import SearchBar from './components/search_bar';
+import VideoList from './components/video_list';
 
-
+import EnvVar from '../.env.js'
 const API_KEY = EnvVar.YOUTUBE_API_KEY
 
+// --------- Fat Arrow Function --------
+// These functions are the same
+// function(argument){
+//   console.log('Argument: ', argument);
+// }
+//
+// (argument) => {
+//   console.log('Argument: ', argument);
+// }
 
-YTSearch({key: API_KEY, term: 'surfboards'}, function(data) {
-  console.log(data);
-})
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-// Create a new component that produces html.
-const App = () => {
+    this.state = { videos: []}
 
-  return <SearchBar />;
+    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+      // same as this.setState({ videos: videos})
+      this.setState({ videos })
+
+      console.log(this.state);
+    })
+
+  }
+
+  render() {
+    return (
+      <div>
+        <SearchBar />
+        <VideoList />
+      </div>
+    )
+  }
+
 }
 
 // Push component's HTML into the DOM.
-
 ReactDOM.render(<App />, document.querySelector('.container'));
